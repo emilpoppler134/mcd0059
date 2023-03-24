@@ -9,22 +9,34 @@ const account = {
   name: null,
   email: null,
   phone: null,
-  code: null,
+  token: null,
 }
 
-function handleSubmit() {
+async function handleSubmit() {
   switch (step) {
     case 1:
-      if (account.code === null) {
+      if (account.token === null) {
+        document.querySelector(".TextInput-element[data-key=token]").parentElement.classList.add("empty");
+        document.querySelector(".error-message-token").style.display = "flex";
+        document.querySelector(".error-message-token").innerText = "Engångskod krävs.";
         return;
       }
 
-      step++;
-      document.querySelector(".title").innerText = "Skapa konto"
-      document.querySelector(".SubmitButton-Text").innerText = "Nästa"
-      document.querySelector(".code-content").style.display = "none";
-      document.querySelector(".signup-content").style.display = "block";
-      document.querySelector(".SubmitButton").classList.add("SubmitButton--incomplete");
+      const { status } = await checkToken({ code: account.token })
+
+      if (status === "OK") {
+        step++;
+        document.querySelector(".title").innerText = "Skapa konto"
+        document.querySelector(".SubmitButton-Text").innerText = "Nästa"
+        document.querySelector(".code-content").style.display = "none";
+        document.querySelector(".signup-content").style.display = "block";
+        document.querySelector(".SubmitButton").classList.add("SubmitButton--incomplete");
+      } else {
+        document.querySelector(".TextInput-element[data-key=token]").parentElement.classList.add("empty");
+        document.querySelector(".error-message-token").style.display = "flex";
+        document.querySelector(".error-message-token").innerText = "Testa en annan kod.";
+      }
+      
       break;
 
     case 2:
@@ -65,7 +77,7 @@ function handleChange(event) {
 function handleKeypress(event) {
   const key = event.target.attributes["data-key"].value;
 
-  if (key == "code") {
+  if (key == "token") {
     if (document.querySelector(".SubmitButton").classList.contains("SubmitButton--incomplete")) {
       document.querySelector(".SubmitButton").classList.remove("SubmitButton--incomplete");
     }
@@ -118,11 +130,18 @@ function updatePasscodeLength() {
   }
 }
 
+async function checkToken({ code }) {
+  const response = await fetch("/tokens/" + code, { method: "POST" });
+  return await response.json();
+}
+
 async function handleSignup() {
   const items = Object.values(account).filter(x => x === null);
   if (items.length > 0) return;
 
   account.passcode = passcode;
+  handleCancel();
+  document.querySelector(".SubmitButton").innerHTML = "<span class='SubmitButton-Text' style='opacity: 0;'>Nästa</span><div class='theme-spinner'></div>";
 
   const params = {
     method: "POST",
@@ -133,11 +152,12 @@ async function handleSignup() {
   };
 
   const response = await fetch("/signup", params);
-  const { status } = await response.json();
+  const { status, data } = await response.json();
 
   if (status === "ERROR") {
-    handleCancel();
-    alert("error");
+    document.querySelector(".error-message-signup").style.display = "flex";
+    document.querySelector(".error-message-signup").innerText = data;
+    document.querySelector(".SubmitButton").innerHTML = "<span class='SubmitButton-Text'>Försök igen</span>";
     return;
   }
   

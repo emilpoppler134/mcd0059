@@ -245,8 +245,14 @@ main {
   gap: 8px;
 }
 
-.inner-footer-link {
-  appearance: none;
-  text-decoration: none;
+.logout-button {
+  border: none;
+  background-color: #00000000;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.logout-button span {
   color: rgb(238 0 0);
+  font-size: 16px;
 }

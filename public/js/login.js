@@ -8,10 +8,12 @@ const account = {
 }
 
 function handleSubmit() {
-  if (account.phone.trim() === "") {
+  if (account.phone === null) {
     if (!document.querySelector(".TextInput").classList.contains("empty")) {
       document.querySelector(".TextInput").classList.add("empty");
     }
+    document.querySelector(".error-message").style.display = "flex";
+    document.querySelector(".error-message").innerText = "Telefonnummer krävs.";
     return;
   }
 
@@ -85,6 +87,8 @@ async function handleLogin() {
   if (items.length > 0) return;
 
   account.passcode = passcode;
+  handleCancel();
+  document.querySelector(".SubmitButton").innerHTML = "<span class='SubmitButton-Text' style='opacity: 0;'>Verifiera</span><div class='theme-spinner'></div>";
 
   const params = {
     method: "POST",
@@ -98,8 +102,9 @@ async function handleLogin() {
   const { status } = await response.json();
 
   if (status === "ERROR") {
-    handleCancel();
-    alert("error");
+    document.querySelector(".error-message").style.display = "flex";
+    document.querySelector(".error-message").innerText = "Fel telefonnummer eller lösenkod.";
+    document.querySelector(".SubmitButton").innerHTML = "<span class='SubmitButton-Text'>Försök igen</span>";
     return;
   }
   
