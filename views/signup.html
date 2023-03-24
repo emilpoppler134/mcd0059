@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>McD 0059</title>
+  <link rel="stylesheet" href="/public/css/main.css">
+  <script src="/public/js/main.js" defer></script>
+  <script src="/public/js/signup.js" defer></script>
+</head>
+<body>
+  <div id="app-root">
+    <main>
+      <div class="container">
+        <span class="title">Ange din engångskod</span>
+
+        <div class="content code-content">
+          <div class="TextInput">
+            <span class="TextInput-key">Engångskod</span>
+            <input type="text" class="TextInput-element" data-key="code">
+          </div>
+        </div>
+        <div class="content signup-content">
+          <div class="TextInput">
+            <span class="TextInput-key">Namn</span>
+            <input type="text" class="TextInput-element" data-key="name">
+          </div>
+          <div class="TextInput">
+            <span class="TextInput-key">Telefonnummer</span>
+            <input type="text" class="TextInput-element" data-key="phone">
+          </div>
+          <div class="TextInput">
+            <span class="TextInput-key">E-post</span>
+            <input type="text" class="TextInput-element" data-key="email">
+          </div>
+        </div>
+
+        <div class="button-container">
+          <button class="SubmitButton SubmitButton--incomplete">
+            <span class="SubmitButton-Text">Verifiera</span>
+          </button>
+        </div>
+
+        <div class="footer-container">
+          <span class="inner-footer-text">eller</span>
+          <span class="inner-footer-text">
+            <a class="inner-footer-link" href="/login">Logga in</a>
+          </span>
+        </div>
+      </div>
+      <div class="container overlay-container">
+        <span class="title overlay-title">Skapa lösenkod</span>
+        <ul class="passcode-skeleton-list">
+          <li class="passcode-skeleton-item"></li>
+          <li class="passcode-skeleton-item"></li>
+          <li class="passcode-skeleton-item"></li>
+          <li class="passcode-skeleton-item"></li>
+          <li class="passcode-skeleton-item"></li>
+          <li class="passcode-skeleton-item"></li>
+        </ul>
+
+        <div class="passcode-grid-template">
+          <button class="passcode-button" data-key="1">
+            <span>1</span>
+          </button>
+          <button class="passcode-button" data-key="2">
+            <span>2</span>
+          </button>
+          <button class="passcode-button" data-key="3">
+            <span>3</span>
+          </button>
+          <button class="passcode-button" data-key="4">
+            <span>4</span>
+          </button>
+          <button class="passcode-button" data-key="5">
+            <span>5</span>
+          </button>
+          <button class="passcode-button" data-key="6">
+            <span>6</span>
+          </button>
+          <button class="passcode-button" data-key="7">
+            <span>7</span>
+          </button>
+          <button class="passcode-button" data-key="8">
+            <span>8</span>
+          </button>
+          <button class="passcode-button" data-key="9">
+            <span>9</span>
+          </button>
+          <div></div>
+          <button class="passcode-button" data-key="0">
+            <span>0</span>
+          </button>
+          <button class="cancel-button">
+            <span>Avbryt</span>
+          </button>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

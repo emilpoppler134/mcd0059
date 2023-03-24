@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>McD 0059</title>
+  <link rel="stylesheet" href="/private/css/main.css">
+  <script src="/private/js/main.js" defer></script>
+</head>
+<body>
+  <div id="app-root">
+    <main>
+      <div class="container">
+        <span class="title">McD 0059</span>
+
+        <div class="app-payment">
+          <form novalidate>
+            <div class="global-fields">
+              <div class="payment-fields flex-wrap">
+                <div class="flex-item flex-wrap">
+                  <span class="checkoutInputHeader">Kortinformation</span>
+                  <div style="position: relative; width: 100%;">
+                    <input type="text" class="checkoutInput top-border-radius" name="cc_number" placeholder="1234 1234 1234 1234" value="" autocapitalize="none" autocomplete="cc-number" autocorrect="off" spellcheck="false" maxlength='19'>
+                    <div class="card-icons">
+                      <img src="/private/images/visa.svg" alt="Visa">
+                      <img src="/private/images/mastercard.svg" alt="Mastercard">
+                      <img src="/private/images/amex.svg" alt="Amex">
+                    </div>
+                  </div>
+                  <input type="text" class="checkoutInput width-50 bottom-left-border-radius" name="cc_exp" placeholder="MM / YY" value="" autocapitalize="none" autocomplete="cc-exp" autocorrect="off" spellcheck="false" maxlength='5'>
+                  <input type="text" class="checkoutInput width-50 bottom-right-border-radius" name="cc_csc" placeholder="CVC" value="" autocapitalize="none" autocomplete="cc-csc" autocorrect="off" spellcheck="false" maxlength='4'>
+                </div>
+                <span class="error-message--card"></span>
+              </div>
+            </div>
+            <div class="confirmPaymentContainer">
+              <button class="SubmitButton SubmitButton--incomplete">
+                <span class="SubmitButton-Text">Överför</span>
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <div class="footer-container">
+          <span class="inner-footer-text">
+            <a class="inner-footer-link" href="/logout">Logga ut</a>
+          </span>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
