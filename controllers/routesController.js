@@ -55,7 +55,7 @@ export async function signup(req, res) {
     return;
   }
 
-  const exist = await userModel.get({ phone: item.phone.trim() });
+  const exist = await userModel.exist({ phone: item.phone.trim() });
   
   if (exist.status === "ERROR") {
     res.json({status: "ERROR", data: "Telefonnummer upptaget."});
