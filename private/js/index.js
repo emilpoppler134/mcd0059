@@ -138,13 +138,14 @@ async function handleAddCard() {
   const response = await fetch("/cards/create", params);
   const { status, data } = await response.json();
 
+  hideLoadingScreen();
+
   if (status === "ERROR") {
     document.querySelector(".error-message").style.display = "flex";
-    document.querySelector(".error-message").innerText = data.message;
+    document.querySelector(".error-message").innerText = data.raw.message;
     return;
   }
 
-  hideLoadingScreen();
   showStartContent();
 }
 
@@ -154,13 +155,14 @@ async function handleRemoveCard() {
   const response = await fetch("/cards/remove", { method: "POST" });
   const { status, data } = await response.json();
 
+  hideLoadingScreen();
+
   if (status === "ERROR") {
     document.querySelector(".error-message").style.display = "flex";
-    document.querySelector(".error-message").innerText = data.message;
+    document.querySelector(".error-message").innerText = data.raw.message;
     return;
   }
 
-  hideLoadingScreen();
   showStartContent();
 }
 
@@ -182,12 +184,13 @@ async function handlePay() {
   const response = await fetch("/charge", params);
   const { status, data } = await response.json();
 
+  hideLoadingScreen();
+
   if (status === "ERROR") {
     document.querySelector(".error-message").style.display = "flex";
-    document.querySelector(".error-message").innerText = data.message;
+    document.querySelector(".error-message").innerText = data.raw.message;
     return;
   }
 
-  hideLoadingScreen();
   console.log(status, data);
 }
