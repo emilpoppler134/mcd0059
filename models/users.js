@@ -25,11 +25,11 @@ export async function get({ accessToken }) {
   } catch(err) { console.error(err); return {status: "ERROR", data: null}; }
 }
 
-export async function create({ id, name, phone, email, passcode }){
+export async function create({ id, name, phone, email, passcode, customerId }){
   try {
     await database.query(`
-      INSERT INTO users (id, name, phone, email, passcode)
-      VALUES ('${id}', '${name}', '${phone}', '${email}', '${passcode}')
+      INSERT INTO users (id, name, phone, email, passcode, customerId)
+      VALUES ('${id}', '${name}', '${phone}', '${email}', '${passcode}', '${customerId}')
     `)
 
     return {status: "OK", data: null};

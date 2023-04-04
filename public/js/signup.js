@@ -156,7 +156,7 @@ async function handleSignup() {
 
   if (status === "ERROR") {
     document.querySelector(".error-message-signup").style.display = "flex";
-    document.querySelector(".error-message-signup").innerText = data;
+    document.querySelector(".error-message-signup").innerText = data.raw.message;
     document.querySelector(".SubmitButton").innerHTML = "<span class='SubmitButton-Text'>Försök igen</span>";
     return;
   }

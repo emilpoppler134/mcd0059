@@ -78,8 +78,10 @@ export async function signup(req, res) {
   item.phone = item.phone.trim();
 
   // Create a stripe customer
+  let customer;
+
   try {
-    await stripe.customers.create({
+    customer = await stripe.customers.create({
       name: req.body.name,
       email: req.body.email,
       phone: req.body.phone
@@ -88,6 +90,8 @@ export async function signup(req, res) {
     res.json({status: "ERROR", data: err});
     return;
   }
+
+  item.customerId = customer.id;
 
   await userModel.create(item);
   await tokenModel.deactivate({ id: data.id, userId: item.id });
