@@ -19,6 +19,9 @@ router.post("/logout", routesController.logout);
 router.post("/tokens/:code", routesController.getToken);
 
 /* CHECKOUT CONTROLLER */
-router.post("/charge", routesController.charge);
+router.post("/charge", auth, routesController.charge);
+router.post("/cards/get", auth, routesController.getCard);
+router.post("/cards/create", auth, routesController.createCard);
+router.post("/cards/remove", auth, routesController.removeCard);
 
 export default router;

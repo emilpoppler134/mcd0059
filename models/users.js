@@ -65,5 +65,4 @@ export async function removeToken({ accessToken }) {
   } catch(err) { console.error(err); return {status: "ERROR"}; }
 }
 
-
 export default { login, get, create, exist, addToken, removeToken }

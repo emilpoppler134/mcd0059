@@ -52,14 +52,13 @@ main {
 
 
 .title {
-    font-size: 24px;
-    font-weight: 600;
-    margin-bottom: 34px;
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 34px;
 }
 
-
-.app-payment {
-    margin-bottom: 34px;
+.content {
+  margin-bottom: 24px;
 }
 
 .flex-wrap {
@@ -255,4 +254,144 @@ main {
 .logout-button span {
   color: rgb(238 0 0);
   font-size: 16px;
+}
+
+/* Add card */
+
+.add-card {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 10px 20px;
+  margin-top: 22px;
+  background-color: #fff;
+  border: 1px solid rgb(209 213 219);
+  border-radius: 8px;
+  cursor: pointer;
+  outline: none;
+}
+
+.add-card:hover {
+  background-color: rgb(243 244 246);
+}
+
+.icon {
+  margin-right: 12px;
+}
+
+.button-text {
+  font-size: 16px;
+}
+
+
+/* Manage card */
+
+.card-title {
+  display: flex;
+  padding-bottom: 12px;
+  color: #1a1b25;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  box-shadow: inset 0 -1px #ebeef1;
+}
+
+.card-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  padding: 12px 0;
+}
+
+.card-information {
+  flex: 1;
+}
+
+.card-action-button {
+  border: 0;
+  outline: none;
+  cursor: pointer;
+  padding: 8px;
+  margin-right: -8px;
+  background-color: #00000000;
+}
+
+.card-icon {
+  height: 32px;
+}
+
+.card-icon .icon {
+  height: 100%;
+  fill: #4a525f;
+}
+
+.card-text {
+  line-height: 20px;
+}
+
+.card-text.card-name, .card-text.card-4last {
+  font-weight: 500;
+}
+
+.card-text.card-exp {
+  color: #687385;
+  font-weight: 400;
+}
+
+/* Pay input */
+
+.input-container {
+  margin: 28px 0;
+}
+
+.checkoutInput.amount {
+  border-radius: 6px;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+
+.loading-screen {
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: #f6f8fa;
+}
+
+/* Theme spinner */
+.theme-spinner::before {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 32px;
+  height: 32px;
+  margin-top: -16px;
+  margin-left: -16px;
+  border-radius: 50%;
+  border: 3px solid rgba(17, 17, 17, 0.3);
+  border-top-color: transparent;
+  animation: spinner 1.5s linear infinite;
+}
+
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
 }
