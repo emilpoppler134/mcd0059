@@ -43,6 +43,7 @@ async function showStartContent() {
         <div class="input-container">
           <input type="number" class="checkoutInput amount" placeholder="Belopp">
         </div>
+        <span class="error-message"></span>
         <div class="confirmPaymentContainer">
           <button class="SubmitButton SubmitButton--incomplete">
             <span class="SubmitButton-Text">Betala</span>
@@ -50,6 +51,7 @@ async function showStartContent() {
         </div>
       </div>
     `;
+    document.querySelector(".checkoutInput.amount").addEventListener("keyup", handleAmountKeyup);
     document.querySelector(".remove-card").addEventListener("click", handleRemoveCard);
     document.querySelector(".SubmitButton").addEventListener("click", handlePay);
   } else {
@@ -69,7 +71,12 @@ async function showStartContent() {
 function showAddCardContent() {
   document.querySelector(".content").innerHTML = `
     <div class="app-payment">
-      <button class="back-button">Back</button>
+      <button class="back-button">
+        <svg aria-hidden="true" class="back-icon" height="12" width="12" viewbox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3.417 7H15a1 1 0 0 1 0 2H3.417l4.591 4.591a1 1 0 0 1-1.415 1.416l-6.3-6.3a1 1 0 0 1 0-1.414l6.3-6.3A1 1 0 0 1 8.008 2.41z"></path>
+        </svg>
+        <span>Tillbaka</span>
+      </button>
       <div class="global-fields">
         <div class="payment-fields flex-wrap">
           <div class="flex-item flex-wrap">
@@ -89,7 +96,7 @@ function showAddCardContent() {
         </div>
       </div>
       <div class="confirmPaymentContainer">
-        <button class="SubmitButton SubmitButton--incomplete">
+        <button class="SubmitButton">
           <span class="SubmitButton-Text">Lägg till</span>
         </button>
       </div>
@@ -168,10 +175,13 @@ async function handleRemoveCard() {
 }
 
 async function handlePay() {
-  showLoadingScreen();
-
   const amount = document.querySelector(".amount").value;
+  if (amount === "") return;
 
+  document.querySelector(".SubmitButton-Text").innerHTML = `
+    <div class="theme-spinner"></div>
+  `;
+  
   const params = {
     method: "POST",
     headers: {
@@ -185,15 +195,21 @@ async function handlePay() {
   const response = await fetch("/charge", params);
   const { status, data } = await response.json();
 
-  hideLoadingScreen();
-
   if (status === "ERROR") {
     document.querySelector(".error-message").style.display = "flex";
     document.querySelector(".error-message").innerText = data.raw.message;
+    document.querySelector(".SubmitButton-Text").innerHTML = "Försök igen";
     return;
   }
 
-  console.log(status, data);
+  document.querySelector(".SubmitButton-Text").innerHTML = `
+    <svg class="check-icon" height="16" width="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+      <path d="M5.297 13.213.293 8.255c-.39-.394-.39-1.033 0-1.426s1.024-.394 1.414 0l4.294 4.224 8.288-8.258c.39-.393 1.024-.393 1.414 0s.39 1.033 0 1.426L6.7 13.208a.994.994 0 0 1-1.402.005z" fill-rule="evenodd"></path>
+    </svg>
+  `;
+  document.querySelector(".SubmitButton").style.backgroundColor = "#57b757";
+  document.querySelector(".SubmitButton").style.pointerEvents = "none";
+  document.querySelector(".checkoutInput.amount").value = "";
 }
 
 
@@ -221,4 +237,18 @@ function handleExpKeyup(event) {
   ).replace(
     /\/\//g, '/' // Prevent entering more than 1 `/`
   );
+}
+
+function handleAmountKeyup(event) {
+  const value = event.target.value;
+
+  if (value.trim() !== "") {
+    if (document.querySelector(".SubmitButton").classList.contains("SubmitButton--incomplete")) {
+      document.querySelector(".SubmitButton").classList.remove("SubmitButton--incomplete");
+    }
+  } else {
+    if (!document.querySelector(".SubmitButton").classList.contains("SubmitButton--incomplete")) {
+      document.querySelector(".SubmitButton").classList.add("SubmitButton--incomplete");
+    }
+  }
 }

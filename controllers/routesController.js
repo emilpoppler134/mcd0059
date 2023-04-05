@@ -144,11 +144,18 @@ export async function charge(req, res) {
     return;
   }
 
-  await stripe.charges.create({
-    amount: req.body.amount * 100,
-    currency: 'sek',
-    customer: data.customerId
-  });
+  try {
+    await stripe.charges.create({
+      amount: req.body.amount * 100,
+      currency: 'sek',
+      customer: data.customerId
+    });
+  } catch(err) {
+    res.json({status: "ERROR", data: err});
+    return;
+  }
+
+  res.json({status: "OK", data: null});
 }
 
 export async function createCard(req, res) {
@@ -197,10 +204,18 @@ export async function getCard(req, res) {
     return;
   }
 
-  const cards = await stripe.customers.listSources(
-    data.customerId,
-    {object: 'card', limit: 1}
-  );
+  let cards;
+
+  try {
+    cards = await stripe.customers.listSources(
+      data.customerId,
+      {object: 'card', limit: 1}
+    );
+  } catch(err) {
+    res.json({status: "ERROR", data: err});
+    return;
+  }
+  
 
   res.json({status: "OK", data: cards.data});
 }
